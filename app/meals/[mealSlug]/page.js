@@ -4,7 +4,9 @@ import { getMeal } from "@/lib/meals";
 import { notFound } from "next/navigation";
 
 export default async function MealDetailsPage({ params }) {
-  const meal = getMeal(params.mealSlug);
+  const serviceParams = await params;
+  const { mealSlug } = serviceParams;
+  const meal = getMeal(mealSlug);
 
   if (!meal) {
     notFound();
@@ -14,7 +16,7 @@ export default async function MealDetailsPage({ params }) {
     <>
       <header className={classes.header}>
         <div className={classes.image}>
-          <Image src={meal.image} fill />
+          <Image src={meal.image} alt="Meal image" fill />
         </div>
         <div className={classes.headerText}>
           <h1>{meal.title}</h1>
